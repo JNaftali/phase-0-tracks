@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grocery shopping!</title>
+</head>
+<body>
+<form name="grocery stores" action="success.html" method="post">
+	<div>
+		<label>Name:</label>
+		<input type="text" name="fullname">
+	</div>
+	<div>
+		<label>Email:</label>
+		<input type="email" name="email">
+	</div>
+	<div>
+		<input type="checkbox" name="cb-agree" value="agree">
+		I consent for my information to be shared with the NSA
+	</div>
+	<div>
+		<label>Please choose your local grocery store:</label>
+		<select name="store">
+			<option value="traderjoe">Trader Joe's</option>
+			<option value="shoprite">Shop Rite</option>
+			<option value="wholefoods">Whole Foods</option>
+		</select>
+	</div>
+	<div>
+		<label>What do you typically buy?</label>
+		<textarea name="groceries" rows="10" cols="50">Put your grocery list here!</textarea>
+	</div>
+	<button type="submit">Submit the form!</button>
+</form>
+</body>
+</html>
