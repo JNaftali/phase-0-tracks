@@ -1,0 +1,8 @@
+Elevator
+  If your current floor is the same as the floor you need to reach, you don't need to use the elevator so stop
+  If the floor you're going to is higher than your current floor
+    push the top button in front of the elevator doors
+  otherwise
+    push the bottom button in front of the elevator doors
+  Repeat for each button:
+    If the number on this button is the same as the floor you want to go:
