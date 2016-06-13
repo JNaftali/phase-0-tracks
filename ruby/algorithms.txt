@@ -13,3 +13,22 @@ Elevator
   Look at the display above the door
   Wait until the number above the door is the same as the number of the floor you're trying to get to
   walk out of the elevator
+
+  Phone book lookup
+    For each page in the phone book
+      look at the left-most column on the page
+      For each column on the page
+        look at the top of the column
+        For each thing in the column
+          If this is the thing you're looking for
+            Take note of the number next to this thing, and you're done!
+          otherwise
+            if there is a thing below it
+              move to the thing below it.
+            otherwise
+              move to the thing at the top of the column
+              if there is a thing to the right of this
+                move to the right
+              otherwise
+                turn the page
+                look at the leftmost part of the page
