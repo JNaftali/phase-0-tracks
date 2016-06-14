@@ -20,9 +20,9 @@ puts "Would you like to enroll in the company’s health insurance?"
 insurance = gets.chomp
 
 if insurance.include? "yes"
-  garlic = true
+  insurance = true
 else
-  garlic = false
+  insurance = false
 end
 
 result = "Results inconclusive."
@@ -35,7 +35,7 @@ if age != Time.now.year - birthyear && (!garlic || !insurance)
   result = "Probably a vampire."
 end
 
-if age != Time.now.year - birthyear && !garlic && !insurance
+if !(age === Time.now.year - birthyear || garlic || insurance)
   result = "Almost certainly a vampire."
 end
 
