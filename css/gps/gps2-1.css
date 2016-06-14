@@ -1,0 +1,33 @@
+body {
+  font-style:
+}
+
+header {
+  text-align: center;
+  border-bottom: black thin solid;
+}
+
+section {
+  width: 50%;
+  display: block;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.column-1 {
+  float: left;
+  background-color: hsla(180,100%,70%,30);
+}
+
+.column-2 {
+  float: right;
+  background-color: green;
+}
+
+footer {
+  display: block;
+  text-align: center;
+  border-top: black thin solid;
+  background-color: yellow;
+  clear: both;
+}
