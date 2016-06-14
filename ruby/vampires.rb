@@ -30,6 +30,19 @@ while counter > 0
     insurance = false
   end
 
+  allergy = "temp"
+  while allergy != "done"
+    puts "Do you have any more allergies? If so, please name one."
+    allergy = gets.chomp
+    if allergy === "sunshine"
+      puts "Probably a vampire."
+      break
+    end
+  end
+  if allergy === "sunshine"
+    next
+  end
+
   result = "Results inconclusive."
 
   if age === Time.now.year - birthyear && (garlic || insurance)
