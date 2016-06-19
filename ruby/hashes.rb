@@ -1,6 +1,6 @@
 #Greet user, initialize empty hash
 puts "Hello! Aren't you looking fabulous today! Lets add a new client."
-client = Hash.new("I don't know")
+client = Hash.new()
 
 #Ask for customer information and plug into hash:
 #Name
@@ -34,4 +34,29 @@ until client[:brands] == true || client[:brands] == false
   end
 end
 
-p client
+#Puts the content of the hash.
+puts "So #{client[:name]} is #{client[:age]} years old and has #{client[:kids]} children.  They have decided that they want #{client[:theme]} themed decor and does#{client[:brands] ? "" : "n't"} want us to use brand names wherever possible."
+
+#Ask if they want to make changes
+puts 'Do you want to fix any of this information? If not, enter "none".'
+fix = gets.chomp.to_sym
+
+#Unless they say none, give them a chance to change a value
+unless fix == :none
+  #Which key do you want to change?
+  while client[fix].nil?
+    puts "I'm sorry, could you repeat that?"
+    fix = gets.chomp.to_sym
+  end
+
+  #Remind them of the old value and ask for the new one.
+  puts "Ok, and you want to change '#{client[fix]}' to what?"
+  client[fix] = gets.chomp
+
+  #re-print the hash
+  puts "So #{client[:name]} is #{client[:age]} years old and has #{client[:kids]} children.  They have decided that they want #{client[:theme]} themed decor and does#{client[:brands] ? "" : "n't"} want us to use brand names wherever possible."
+end
+
+#And we're done
+puts "Ok, seeya later!"
+client
