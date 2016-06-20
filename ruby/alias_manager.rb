@@ -38,16 +38,20 @@ def spy_name (full_name)
 end
 
 puts "Welcome to the alias maker. Please enter a full name to generate an alias.  To finish either enter 'quit' or nothing at all."
+agent_list = {}
+
 until false
   next_name = gets.chomp
   case next_name
-  when 'quit', ''
+  when 'quit', 'q', ''
     break
   when /^\w+\s\w+$/
-    puts next_name + ' shall be known as ' + spy_name(next_name)
+    puts next_name + '\'s alias is ' + agent_list[next_name] = spy_name(next_name)
   else
     puts "Please enter a full name as follows: Firstname Lastname. You can also finish by pressing 'enter'"
   end
     
-  end
-puts "Very well, goodbye."
+end
+puts "Very well.  Here is a list of all the agents:"
+agent_list.each { | name, spyname | puts name + ' shall be known as ' + spyname }
+puts "Goodbye"
