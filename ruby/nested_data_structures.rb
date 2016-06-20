@@ -1,3 +1,5 @@
+#My "real world construct" is a song, http://www.peterpaulandmary.com/music/17-07.htm
+
 old_lady = {
   status: 'Alive and well, of course',
   horse: true,
@@ -18,8 +20,10 @@ old_lady = {
             organs: [ 'liver', 'kidney', 'heart', 'stomach', 'pebble' ],
             spider: {
               status: 'Wriggled and jiggled and tickled inside',
+              organs: [ 'heart', 'stomach', 'silk_gland', 'book_lung' ],
               fly: {
-                status: 'I don\t know why'
+                status: 'I don\t know why',
+                organs: [ 'wings', 'stomach', 'compound_eyes', 'mouthparts' ],
               }
             }
           }
@@ -29,4 +33,8 @@ old_lady = {
   }
 }
 
-p old_lady
+p old_lady[:cow][:goat][:dog][:cat][:organs] | old_lady[:cow][:goat][:dog][:cat][:bird][:spider][:organs]
+
+p old_lady[:cow][:goat][:dog][:cat][:bird][:spider][:status]
+
+p old_lady[:cow][:goat][:dog][:cat][:bird][:spider][:fly][:organs][2]
