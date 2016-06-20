@@ -4,6 +4,8 @@ def add_to_array(array, *items)
   array + items
 end
 
+#Technically, the following could be replaced with:
+#alias_method build_array, Array.new
 def build_array(*items)
   items
 end
