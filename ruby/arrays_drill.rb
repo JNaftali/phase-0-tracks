@@ -1,11 +1,11 @@
 #Created with kawikathomas, see copy in his repo for proper workflow
 
-def add_to_array(array, item)
-  array << item  
+def add_to_array(array, *items)
+  array + items
 end
 
-def build_array(a, b, c)
-  [a, b, c]
+def build_array(*items)
+  items
 end
 
 new_array = []
@@ -34,4 +34,4 @@ p combined_array
 p build_array("taco", "burrito", "hamburger")
 
 p add_to_array(new_array, "item6")
-p add_to_array(second_array, "purple")
+p add_to_array(second_array, "purple", "orange")
