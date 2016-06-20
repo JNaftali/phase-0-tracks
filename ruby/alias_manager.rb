@@ -30,8 +30,9 @@ def spy_name (full_name)
   #go through each character of the argument and shift each appropriately
   full_name = full_name.downcase.chars.map { |c| shiftchar(c) }.join('')
 
-  #split the parameter into first and last names, switch them, and put them back together
-  full_name.split(" ").reverse.join(" ")
-end
+  #split the parameter into first and last names and switch them
+  full_name = full_name.split(" ").reverse
 
-p spy_name("Josh Marantz")
+  #upcase the first letter of each name and merge them back together
+  full_name.map! { | str | str.capitalize }.join(" ")
+end
