@@ -27,12 +27,11 @@ end
 #define a method with one parameter, full_name
 def spy_name (full_name)
 
-  #go through each character of the argument
-  
-  #change each to the next consonant or vowel
+  #go through each character of the argument and shift each appropriately
+  full_name = full_name.downcase.chars.map { |c| shiftchar(c) }.join('')
 
-  #split the parameter into first and last names
-
-  #switch the order of the names
-
+  #split the parameter into first and last names, switch them, and put them back together
+  full_name.split(" ").reverse.join(" ")
 end
+
+p spy_name("Josh Marantz")
