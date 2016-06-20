@@ -36,3 +36,18 @@ def spy_name (full_name)
   #upcase the first letter of each name and merge them back together
   full_name.map! { | str | str.capitalize }.join(" ")
 end
+
+puts "Welcome to the alias maker. Please enter a full name to generate an alias.  To finish either enter 'quit' or nothing at all."
+until false
+  next_name = gets.chomp
+  case next_name
+  when 'quit', ''
+    break
+  when /^\w+\s\w+$/
+    puts next_name + ' shall be known as ' + spy_name(next_name)
+  else
+    puts "Please enter a full name as follows: Firstname Lastname. You can also finish by pressing 'enter'"
+  end
+    
+  end
+puts "Very well, goodbye."
