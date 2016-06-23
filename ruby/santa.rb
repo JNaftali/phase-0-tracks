@@ -36,9 +36,9 @@ class Santa
   end
 end
 
-#robert = Santa.new
-#robert.speak
-#robert.eat_milk_and_cookies("chocolate chip cookie")
+robert = Santa.new("male", "white")
+robert.speak
+robert.eat_milk_and_cookies("chocolate chip cookie")
 
 santas = []
 genders = ["agender", "female", "bigender", "male", "gender fluid", "N/A", "neuter"]
