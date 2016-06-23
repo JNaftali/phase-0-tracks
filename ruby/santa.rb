@@ -36,28 +36,43 @@ class Santa
   end
 end
 
-robert = Santa.new("male", "white")
-robert.speak
-robert.eat_milk_and_cookies("chocolate chip cookie")
+#Driver code, pre release 4
 
-santas = []
+#robert = Santa.new("male", "white")
+#robert.speak
+#robert.eat_milk_and_cookies("chocolate chip cookie")
+#
+#santas = []
+#genders = ["agender", "female", "bigender", "male", "gender fluid", "N/A", "neuter"]
+#ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A", "unimportant", "Scandinavian", "Reubenesque"]
+#
+#
+#10.times do |i|
+#  n = Random.new()
+#  g = -n.rand(genders.length)
+#  e = -n.rand(ethnicities.length)
+#  santas << Santa.new(genders[g], ethnicities[e])
+#end
+#
+#30.times { santas[2].celebrate_birthday }
+#p santas[2].age
+#p santas[2].ethnicity
+#p santas[2].gender
+#santas[2].gender = "trisexual"
+#p santas[2].gender
+#p santas[2].least_favorite
+#santas[2].get_mad_at("Dasher")
+#p santas[2].least_favorite
+
+
+#Santa generator
 genders = ["agender", "female", "bigender", "male", "gender fluid", "N/A", "neuter"]
 ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A", "unimportant", "Scandinavian", "Reubenesque"]
 
 
-10.times do |i|
-  n = Random.new()
-  g = -n.rand(genders.length)
-  e = -n.rand(ethnicities.length)
-  santas << Santa.new(genders[g], ethnicities[e])
+100.times do
+  santa = Santa.new(genders.sample, ethnicities.sample)
+  age = Random.new
+  age.rand(0..140).times {santa.celebrate_birthday}
+  puts "This santa is #{santa.age} years old and #{santa.ethnicity}. They consider themselves to be #{santa.gender}."
 end
-
-30.times { santas[2].celebrate_birthday }
-p santas[2].age
-p santas[2].ethnicity
-p santas[2].gender
-santas[2].gender = "trisexual"
-p santas[2].gender
-p santas[2].least_favorite
-santas[2].get_mad_at("Dasher")
-p santas[2].least_favorite
