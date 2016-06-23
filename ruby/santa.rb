@@ -19,6 +19,33 @@ class Santa
   def print
     puts "This santa is #{@ethnicity} and considers themselves to be #{@gender}"
   end
+
+  def celebrate_birthday
+    @age += 1
+  end
+
+  def get_mad_at (reindeer)
+    @reindeer_ranking.delete(reindeer)
+    @reindeer_ranking.push(reindeer)
+  end
+
+  #getter methods
+  def age
+    @age
+  end
+
+  def ethnicity
+    @ethnicity
+  end
+
+  def gender
+    @gender
+  end
+
+  #setter methods
+  def gender= (new_gender)
+    @gender = new_gender
+  end
 end
 
 #robert = Santa.new
@@ -35,5 +62,11 @@ ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to sa
   g = -n.rand(genders.length)
   e = -n.rand(ethnicities.length)
   santas << Santa.new(genders[g], ethnicities[e])
-  santas[i-1].print
 end
+
+30.times { santas[2].celebrate_birthday }
+p santas[2].age
+p santas[2].ethnicity
+p santas[2].gender
+santas[2].gender = "trisexual"
+p santas[2].gender
