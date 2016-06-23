@@ -84,8 +84,16 @@ loop do
 
   puts "What effect will your spell have? If you don't enter a result it will fizzle!"
   result = gets.chomp
+  result = "The spell fizzles." if escapes.include?(result)
 
   spellbook << Spell.new(name, mana, result, *ingredients )
   puts "Ok, added that page to your spellbook! Do you want to add another new spell?"
 end
-p spellbook
+puts "\n\n\nOk! Here are all of your spells:\n\n"
+spellbook.each do |spell|
+  puts "#{spell.name} costs #{spell.mana} and requires the following ingredients:"
+  spell.ingredients.each { |ing| puts ing }
+  puts "Upon being cast the following happens:"
+  spell.cast
+  puts "\n"
+end
