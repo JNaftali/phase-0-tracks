@@ -1,12 +1,29 @@
 module Shout
-  def self.yell_angrily(words)
+  #def self.yell_angrily(words)
+  #  words + "!!!" + " :("
+  #end
+#
+  #def self.yelling_happily(words)
+  #  words + "!!!" + " :D"
+  #end
+  def yell_angrily(words)
     words + "!!!" + " :("
   end
-
-  def self.yelling_happily(words)
+  def yelling_happily(words)
     words + "!!!" + " :D"
   end
 end
 
-p Shout.yell_angrily("I AM ANGRY")
-p Shout.yelling_happily("I AM HAPPY")
+class Loud_Kiddington
+  include Shout
+end
+
+class Bullhorn
+  include Shout
+end
+
+kid = Loud_Kiddington.new
+p kid.yelling_happily("BOOOM")
+
+bullhorn = Bullhorn.new
+p bullhorn.yell_angrily("Out of the way!")
