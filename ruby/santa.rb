@@ -1,12 +1,6 @@
 class Santa
-
-  def speak
-    p "Ho, ho, ho! Haaappy holidays!"
-  end
-
-  def eat_milk_and_cookies (cookie_type)
-    p "That was a good #{cookie_type}!"
-  end
+  attr_reader :age, :ethnicity
+  attr_accessor :gender
 
   def initialize (gender, ethnicity )
     p "Initializing Santa instance..."
@@ -14,6 +8,14 @@ class Santa
     @ethnicity = ethnicity
     @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
     @age = 0
+  end
+
+  def speak
+    p "Ho, ho, ho! Haaappy holidays!"
+  end
+
+  def eat_milk_and_cookies (cookie_type)
+    p "That was a good #{cookie_type}!"
   end
 
   def print
@@ -29,22 +31,8 @@ class Santa
     @reindeer_ranking.push(reindeer)
   end
 
-  #getter methods
-  def age
-    @age
-  end
-
-  def ethnicity
-    @ethnicity
-  end
-
-  def gender
-    @gender
-  end
-
-  #setter methods
-  def gender= (new_gender)
-    @gender = new_gender
+  def least_favorite
+    @reindeer_ranking[-1]
   end
 end
 
@@ -70,3 +58,6 @@ p santas[2].ethnicity
 p santas[2].gender
 santas[2].gender = "trisexual"
 p santas[2].gender
+p santas[2].least_favorite
+santas[2].get_mad_at("Dasher")
+p santas[2].least_favorite
