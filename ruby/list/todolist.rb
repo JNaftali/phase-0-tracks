@@ -4,4 +4,8 @@ class TodoList
   def initialize ( array )
     @get_items = array
   end
+
+  def add_item(item)
+    @get_items << item 
+  end
 end
