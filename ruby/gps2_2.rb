@@ -20,6 +20,7 @@ def print_list(hash)
   hash.each do |item, number|
     puts "#{item}, qty: #{number}"
   end
+  #puts "--------------"
 end
 
 # Method to create a list
