@@ -38,3 +38,30 @@ spot = Puppy.new
 #spot.dog_years(3)
 
 #spot.chase_tail
+
+class Robot
+
+  def initialize
+    p "initializing robotic takeover"
+  end
+
+  def dahlek
+    p "EXTERMINATE! EXTERMINATE!"
+  end
+
+  def translate ( string )
+    words = [ "beep", "boop", "booweep", "buzz" ]
+    translation = ''
+    string.each_codepoint do |i|
+      translation << words[rand(words.length)] << ' ' if i.odd?
+    end
+    p translation
+  end
+end
+
+army = []
+50.times { army << Robot.new }
+army.each do | robot |
+  robot.translate("I declare the robot invasion and you can't even tell!")
+  robot.dahlek
+end
