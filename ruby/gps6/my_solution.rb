@@ -10,43 +10,43 @@ require_relative 'state_data'
 
 class VirusPredictor
 
-# initializes instance variables
+  # initializes instance variables
   def initialize(state_of_origin, population_density, population)
     @state = state_of_origin
     @population = population
     @population_density = population_density
   end
 
-# passes the instance variables to predicted_deaths and speed_of_spread methods
+  # passes the instance variables to predicted_deaths and speed_of_spread methods
   def virus_effects
-    predicted_deaths
+    print "#{@state} will lose #{predicted_deaths} people in this outbreak"
     speed_of_spread
   end
 
   private
 
-# calculates the number of deaths based on population and
-# population density, then prints it out
+  # calculates the number of deaths based on population and
+  # population density, then prints it out
   def predicted_deaths
     # predicted deaths is solely based on population density
-    if @population_density >= 200
-      number_of_deaths = (@population * 0.4).floor
-    elsif @population_density >= 150
-      number_of_deaths = (@population * 0.3).floor
-    elsif @population_density >= 100
-      number_of_deaths = (@population * 0.2).floor
-    elsif @population_density >= 50
-      number_of_deaths = (@population * 0.1).floor
+    case @population_density
+    when (1..49)
+      factor = 0.05
+    when (50..99)
+      factor = 0.1
+    when (100..149)
+      factor = 0.2
+    when (150..199)
+      factor = 0.3
     else
-      number_of_deaths = (@population * 0.05).floor
+      factor = 0.4
     end
 
-    print "#{@state} will lose #{number_of_deaths} people in this outbreak"
-
+    (@population * factor).floor
   end
 
-# calculates the speed the virus will spread based on
-# population density and ? and prints it out.
+  # calculates the speed the virus will spread based on
+  # population density and ? and prints it out.
   def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
