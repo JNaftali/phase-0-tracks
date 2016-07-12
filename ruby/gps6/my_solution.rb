@@ -19,8 +19,7 @@ class VirusPredictor
 
   # passes the instance variables to predicted_deaths and speed_of_spread methods
   def virus_effects
-    print "#{@state} will lose #{predicted_deaths} people in this outbreak"
-    speed_of_spread
+    puts "#{@state} will lose #{predicted_deaths} people in this outbreak and will spread across the state in #{speed_of_spread} months.\n\n"
   end
 
   private
@@ -50,22 +49,12 @@ class VirusPredictor
   def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
-    speed = 0.0
-
-    if @population_density >= 200
-      speed += 0.5
-    elsif @population_density >= 150
-      speed += 1
-    elsif @population_density >= 100
-      speed += 1.5
-    elsif @population_density >= 50
-      speed += 2
-    else
-      speed += 2.5
+    speed = 2.5
+    (1..4).each do | i |
+      break unless @population_density >= 50 * i
+      speed -= 0.5
     end
-
-    puts " and will spread across the state in #{speed} months.\n\n"
-
+    speed
   end
 
 end
