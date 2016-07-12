@@ -19,15 +19,15 @@ class VirusPredictor
 
 # passes the instance variables to predicted_deaths and speed_of_spread methods
   def virus_effects
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+    predicted_deaths
+    speed_of_spread
   end
 
   private
 
 # calculates the number of deaths based on population and
 # population density, then prints it out
-  def predicted_deaths(population_density, population, state)
+  def predicted_deaths
     # predicted deaths is solely based on population density
     if @population_density >= 200
       number_of_deaths = (@population * 0.4).floor
@@ -47,7 +47,7 @@ class VirusPredictor
 
 # calculates the speed the virus will spread based on
 # population density and ? and prints it out.
-  def speed_of_spread(population_density, state) #in months
+  def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
     speed = 0.0
@@ -78,20 +78,6 @@ end
 STATE_DATA.each do |state, hash|
   VirusPredictor.new(state, hash[:population_density], hash[:population]).virus_effects
 end
-
-
-#alabama = VirusPredictor.new("Alabama", STATE_DATA["Alabama"][:population_density], STATE_DATA["Alabama"][:population])
-#alabama.virus_effects
-
-#jersey = VirusPredictor.new("New Jersey", STATE_DATA["New Jersey"][:population_density], STATE_DATA["New Jersey"][:population])
-#jersey.virus_effects
-
-#california = VirusPredictor.new("California", STATE_DATA["California"][:population_density], STATE_DATA["California"][:population])
-#california.virus_effects
-
-#alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population])
-#alaska.virus_effects
-
 
 #=======================================================================
 # Reflection Section
