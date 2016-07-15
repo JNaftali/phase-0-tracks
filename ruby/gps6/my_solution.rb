@@ -69,4 +69,17 @@ STATE_DATA.each do |state, hash|
 end
 
 #=======================================================================
-# Reflection Section
+=begin
+
+Reflection Section
+
+* One stores the keys as strings, the other as symbols. Symbols as hash keys are a big performance boost when used as (basically) column headings because even though they're used over 50 times each ruby only needs to remember each symbol once.
+
+* require_relative loads the code of another document into this document. It uses a filepath relative to the folder that contains the document where it is called instead of an absolute filepath (relative to the root of the filesystem).
+
+* most commonly you'll use each, although if you only need the kays/values you can iterate through each of them as well. If you don't mind destroying the hash you can also use ((while hash do hash.shift end))
+
+* the variables that were passed to the instance methods were all instance variables and could therefore be called directly from any instance method
+
+* Don't store more things than you have to. If you design your class so that instances can be created, called, and discarded in one line it will make your driver code much cleaner and keep your code from slowing down the system.
+end
