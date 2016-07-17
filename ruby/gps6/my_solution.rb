@@ -49,12 +49,17 @@ class VirusPredictor
   def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
-    speed = 2.5
-    (1..4).each do | i |
-      break unless @population_density >= 50 * i
-      speed -= 0.5
-    end
-    speed
+
+    #original submission
+    #speed = 2.5
+    #(1..4).each do | i |
+    #  break unless @population_density >= 50 * i
+    #  speed -= 0.5
+    #end
+
+    #Looking over this again, this would be way better:
+    speed = 2.5 - @population_density / 100
+    [speed, 0.5].max
   end
 
 end
