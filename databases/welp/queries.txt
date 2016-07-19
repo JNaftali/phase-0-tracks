@@ -1,0 +1,27 @@
+Release 2:
+3. There are some repetitive columns if we choose to view all fields. Choose instead to just view the user's names, the business name, the star rating, and the comment.
+
+Input:
+SELECT businesses.name,users.first_name, users.last_name,reviews.stars,reviews.comment
+   ...> FROM reviews
+   ...> JOIN businesses ON businesses.id = reviews.business_id
+   ...> JOIN users ON users.id = reviews.user_id
+   ...> ;
+Output
+Grundy Hollow Wedding Chapel|Bradford|Pitt|4|Great place for my 5th wedding. Will get married here again.
+Lotus Yoga|Mandy|Kaling|1|Weird sweaty people in strange shapes
+Grundy Hollow Wedding Chapel|Angela|Jolie|2|Staff could not handle my 5 children. Will not get married here again.
+
+4. How do you view the data of all three tables for just one particular business?
+Input:
+SELECT businesses.name,users.first_name,
+users.last_name,reviews.stars,reviews.comment
+FROM reviews
+JOIN businesses ON businesses.id = reviews.business_id
+JOIN users ON users.id = reviews.user_id
+WHERE businesses.id = 1
+;
+
+Output:
+Grundy Hollow Wedding Chapel|Bradford|Pitt|4|Great place for my 5th wedding. Will get married here again.
+Grundy Hollow Wedding Chapel|Angela|Jolie|2|Staff could not handle my 5 children. Will not get married here again.
