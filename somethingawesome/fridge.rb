@@ -1,4 +1,5 @@
 require 'sqlite3'
+require 'Date'
 
 # create local pointer to SQLite3 database
 db = SQLite3::Database.new("fridge.db")
@@ -6,10 +7,10 @@ db = SQLite3::Database.new("fridge.db")
 
 # Create the table if it doesn't already exist
 create_table_cmd = <<-SQL
-  CREATE TABLE IF NOT EXISTS fridge(  #no primary key needed: YOU'RE NOT SPECIAL, EGGS!
-    item VARCHAR(255),                #eggs
-    quantity INT,                     #2 dozen
-    purchased REAL                    #date item was purchased. Format is Julian, user never sees until it's converted
+  CREATE TABLE IF NOT EXISTS fridge(
+    item VARCHAR(255),
+    quantity INT,
+    purchased INT
   )
 SQL
 db.execute(create_table_cmd)
@@ -34,18 +35,18 @@ db.execute(create_table_cmd)
   #quantity - accessor
   #purchased - reader
 #Methods
-  #initialize - takes item, quantity, and date of purchase
-  #to_s - @quantity @name
-  #inspect - returns item as a hash with symbol keys name, quantity, and purchased
+  #initialize - takes item and quantity, and sets date of purchase
+  #to_s - formatted string with all instance variables
+  #inspect - returns readable item
   # == - returns true if name and quantity match
   # <=> - compares quantity
 
 class Fridge
-  attr_reader inventory
+  attr_reader :inventory
 
   def initialize(database)
     @inventory = []
-    @database = database
+    @db = database
   end
 
   def add(item, quantity = 1)
@@ -54,8 +55,7 @@ class Fridge
 
   def remove(item, quantity = true)
      #removes all instances of that item unless quantity is a number
-     return @inventory.delete(Grocery.new(item, 1)) unless quantity.class == 'Integer'
-
+     return @inventory.delete(Grocery.new(item, 1)) unless quantity.class == Fixnum
     #Otherwise starts with the oldest and removes until quantity is used up
     @inventory.each_index do |i|
       grocery = @inventory[i]
@@ -68,6 +68,9 @@ class Fridge
         @inventory.delete_at(i)
         break if quantity == 0
       end
+    end
+    if quantity > 0
+      puts "We don't have that many #{item}!"
     end
   end
 
@@ -82,9 +85,64 @@ class Fridge
   def to_s
     return "This fridge is empty." if @inventory.empty?
 
-    str = "This fridge contains:\n"
+    str = "This fridge contains:"
     @inventory.sort { |x,y| x.name <=> y.name }.each do |grocery| #Sort the items by name
-      str.concat(grocery) << "\n" #the grocery item's own to_s method should format this correctly
+      str << "\n  " << grocery.to_s
     end
+    str
+  end
+
+  def inspect
+    @inventory #Each grocery should properly convert itself to an easily displayed hash object
   end
 end
+
+class Grocery
+  include Comparable
+  attr_reader :name, :purchased
+  attr_accessor :quantity
+
+  def initialize(name, quantity)
+    @name = name
+    @quantity = quantity
+    @purchased = Date::today.jd
+  end
+
+  def to_s
+    "#{@quantity} #{@name}, purchased on #{Date.jd(@purchased)}"
+  end
+
+  def inspect
+    "#<Grocery: #{@quantity} #{@name}, purchased #{Date.jd(@purchased)}>"
+  end
+
+  def == other
+    @name == other.name && @quantity == other.quantity
+  end
+
+  def <=> other
+    #right now 2 eggs < 3 string beans. Would like to figure out how to make that error
+    @quantity <=> other.quantity
+  end
+end
+
+eggs = Grocery.new("eggs", 12)
+p eggs
+puts eggs
+
+puts "Should be false: " + (eggs == Grocery.new("eggs", 13)).to_s
+puts "Should be true: " + (eggs == Grocery.new("eggs", 12)).to_s
+
+puts "Should be true: " + (eggs < Grocery.new("eggs", 13)).to_s
+
+fridge = Fridge.new(db)
+fridge.add("eggs", 12)
+fridge.add("lettuce", 3)
+fridge.add("tomatoes", 5)
+fridge.add("milk", 1)
+p fridge
+puts fridge
+fridge.remove("tomatoes", 2)
+puts fridge
+fridge.remove("lettuce", 5)
+puts fridge
