@@ -46,7 +46,7 @@ class Fridge
 
   def initialize(database)
     @inventory = []
-    @db = database
+    @database = database
   end
 
   def add(grocery)
@@ -81,11 +81,20 @@ class Fridge
   end
 
   def load
-    #placeholder - saving complicated for later
+    @inventory = []
+    @database.execute("SELECT * FROM fridge") do |row|
+      add(Grocery.new(*row))
+    end
   end
 
   def save
-    #placeholder - saving complicated for later
+    @database.execute("DELETE FROM fridge")
+    str = "INSERT INTO fridge (item, quantity, purchased) VALUES"
+    @inventory.each do |grocery|
+      str << "('#{grocery.name}', #{grocery.quantity}, #{grocery.purchased}), "
+    end
+    #execute str without the last ", "
+    @database.execute(str[0...-2])
   end
 
   def to_s
@@ -108,10 +117,10 @@ class Grocery
   attr_reader :name, :purchased
   attr_accessor :quantity
 
-  def initialize(name, quantity = 1)
+  def initialize(name, quantity = 1, purchased = Date::today.jd)
     @name = name
     @quantity = quantity
-    @purchased = Date::today.jd
+    @purchased = purchased
   end
 
   def to_s
