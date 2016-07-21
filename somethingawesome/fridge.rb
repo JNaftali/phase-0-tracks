@@ -49,19 +49,25 @@ class Fridge
     @db = database
   end
 
-  def add(item, quantity = 1)
-    inventory << Grocery.new(item, quantity)
+  def add(grocery)
+    return false if grocery.class != Grocery
+    inventory << grocery
   end
 
   def remove(item, quantity = true)
      #removes all instances of that item unless quantity is a number
      return @inventory.delete(Grocery.new(item, 1)) unless quantity.class == Fixnum
     #Otherwise starts with the oldest and removes until quantity is used up
-    @inventory.each_index do |i|
+    i = 0
+    while i < @inventory.length do
       grocery = @inventory[i]
-      next unless grocery.name == item
+      unless grocery.name == item
+        i += 1
+        next
+      end
       if grocery.quantity > quantity
-        grocery.quantity -= quantity
+        @inventory[i].quantity -= quantity
+        quantity = 0
         break
       else
         quantity -= grocery.quantity
@@ -102,7 +108,7 @@ class Grocery
   attr_reader :name, :purchased
   attr_accessor :quantity
 
-  def initialize(name, quantity)
+  def initialize(name, quantity = 1)
     @name = name
     @quantity = quantity
     @purchased = Date::today.jd
@@ -125,24 +131,3 @@ class Grocery
     @quantity <=> other.quantity
   end
 end
-
-eggs = Grocery.new("eggs", 12)
-p eggs
-puts eggs
-
-puts "Should be false: " + (eggs == Grocery.new("eggs", 13)).to_s
-puts "Should be true: " + (eggs == Grocery.new("eggs", 12)).to_s
-
-puts "Should be true: " + (eggs < Grocery.new("eggs", 13)).to_s
-
-fridge = Fridge.new(db)
-fridge.add("eggs", 12)
-fridge.add("lettuce", 3)
-fridge.add("tomatoes", 5)
-fridge.add("milk", 1)
-p fridge
-puts fridge
-fridge.remove("tomatoes", 2)
-puts fridge
-fridge.remove("lettuce", 5)
-puts fridge
