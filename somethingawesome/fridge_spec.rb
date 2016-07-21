@@ -28,9 +28,22 @@ describe Grocery do
   end
 end
 
+
+#couldn't figure out how to have my sample fridge persist between 'it' examples with 'let', so I'm using 'before' instead
 describe Fridge do
   before(:all) do
-    @fridge = Fridge.new("placeholder")
+    @db = SQLite3::Database.new("fridgespec.db")
+    create_table_cmd = <<-SQL
+      CREATE TABLE IF NOT EXISTS fridge(
+        item VARCHAR(255),
+        quantity INT,
+        purchased INT
+      )
+    SQL
+    @db.execute(create_table_cmd)
+    @db.execute("DELETE FROM fridge")
+
+    @fridge = Fridge.new(@db)
     @fridge.add(Grocery.new("eggs", 12))
     @fridge.add(Grocery.new("lettuce", 3))
     @fridge.add(Grocery.new("lettuce", 7))
@@ -60,5 +73,16 @@ describe Fridge do
 
   it "inspects properly" do
     expect(@fridge.inspect).to eq(@fridge.inventory)
+  end
+
+  it "saves itself properly to a database" do
+    @fridge.save
+    expect(@db.execute("SELECT * FROM fridge")).to eq([["eggs", 12, 2457591], ["lettuce", 5, 2457591], ["tomatoes", 5, 2457591], ["milk", 1, 2457591]])
+  end
+
+  it "loads properly from a database" do
+    temp = Fridge.new(@db)
+    temp.load
+    expect(temp.inventory).to eq([Grocery.new('eggs',12), Grocery.new("lettuce", 5), Grocery.new('tomatoes',5), Grocery.new('milk',1)])
   end
 end
