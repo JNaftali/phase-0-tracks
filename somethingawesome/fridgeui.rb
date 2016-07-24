@@ -67,7 +67,7 @@ loop do
         break
       when /(\d+) ((?:\w+ ?)+)/
         item = $2
-        quantity = $1
+        quantity = $1.to_i
       when /(?:[a-zA-Z]+ ?)+/
         item = response
         puts "How many #{item} are you taking out of your fridge?"
@@ -78,6 +78,7 @@ loop do
       end
       puts "Removing #{quantity} #{item} from your fridge."
       fridge.remove(item, quantity)
+      puts fridge
       puts "Ok, next item. Type 'done' or 'quit' to finish."
     end
   end

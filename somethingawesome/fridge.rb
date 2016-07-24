@@ -61,6 +61,7 @@ class Fridge
     i = 0
     while i < @inventory.length do
       grocery = @inventory[i]
+      grocery.quantity = grocery.quantity.to_i
       unless grocery.name == item
         i += 1
         next
