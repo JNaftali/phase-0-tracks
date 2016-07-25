@@ -114,6 +114,10 @@ class Fridge
   def inspect
     @inventory #Each grocery should properly convert itself to an easily displayed hash object
   end
+
+  def count(item)
+    @inventory.reduce { |sum, n| sum + ( n.name == item ? n.quantity : 0 ) }
+  end
 end
 
 class Grocery
