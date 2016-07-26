@@ -44,3 +44,28 @@ get '/students/:id' do
   student = db.execute("SELECT * FROM students WHERE id=?", [params[:id]])[0]
   student.to_s
 end
+
+get '/contact' do
+  "1600 Pennsylvania Avenue Washington, D.C."
+end
+
+get '/great_job' do
+  return "Great job!" if !params[:name]
+  "Great job, #{params[:name]}!"
+end
+
+get '/:n1/+/:n2' do
+  (params[:n1].to_i + params[:n2].to_i).to_s
+end
+
+get '/search/:firstname' do
+  students = db.execute("SELECT * FROM students WHERE name LIKE '%#{params[:firstname]}%'")
+  response = ""
+  students.each do |student|
+    response << "ID: #{student['id']}<br>"
+    response << "Name: #{student['name']}<br>"
+    response << "Age: #{student['age']}<br>"
+    response << "Campus: #{student['campus']}<br><br>"
+  end
+  response
+end
