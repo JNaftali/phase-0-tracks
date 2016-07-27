@@ -44,9 +44,10 @@ db.execute(create_table_cmd)
 class Fridge
   attr_reader :inventory
 
-  def initialize(database)
+  def initialize(database, table)
     @inventory = []
     @database = database
+    @table = table
   end
 
   def add(grocery)
@@ -83,19 +84,21 @@ class Fridge
 
   def load
     @inventory = []
-    @database.execute("SELECT * FROM fridge") do |row|
+    @database.execute("SELECT * FROM #{@table}") do |row|
       add(Grocery.new(*row))
     end
   end
 
   def save
-    @database.execute("DELETE FROM fridge")
-    str = "INSERT INTO fridge (item, quantity, purchased) VALUES"
+    @database.execute("DELETE FROM #{@table}")
+    return false if @inventory.empty?
+    str = "INSERT INTO #{@table} (item, quantity, purchased) VALUES"
     @inventory.each do |grocery|
       str << "('#{grocery.name}', #{grocery.quantity}, #{grocery.purchased}), "
     end
     #execute str without the last ", "
     @database.execute(str[0...-2])
+    true
   end
 
   def to_s
@@ -110,6 +113,10 @@ class Fridge
 
   def inspect
     @inventory #Each grocery should properly convert itself to an easily displayed hash object
+  end
+
+  def count(item)
+    @inventory.reduce { |sum, n| sum + ( n.name == item ? n.quantity : 0 ) }
   end
 end
 

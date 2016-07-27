@@ -43,7 +43,7 @@ describe Fridge do
     @db.execute(create_table_cmd)
     @db.execute("DELETE FROM fridge")
 
-    @fridge = Fridge.new(@db)
+    @fridge = Fridge.new(@db, "fridge")
     @fridge.add(Grocery.new("eggs", 12))
     @fridge.add(Grocery.new("lettuce", 3))
     @fridge.add(Grocery.new("lettuce", 7))
@@ -65,7 +65,7 @@ describe Fridge do
   end
 
   it "converts properly to a string" do
-    expect(Fridge.new("placeholder").to_s).to eq("This fridge is empty.")
+    expect(Fridge.new("placeholder", "fridge").to_s).to eq("This fridge is empty.")
 
     str = "This fridge contains:\n  12 eggs, purchased on #{Date::today}\n  5 lettuce, purchased on #{Date::today}\n  1 milk, purchased on #{Date::today}\n  5 tomatoes, purchased on #{Date::today}"
     expect(@fridge.to_s).to eq(str)
@@ -77,11 +77,11 @@ describe Fridge do
 
   it "saves itself properly to a database" do
     @fridge.save
-    expect(@db.execute("SELECT * FROM fridge")).to eq([["eggs", 12, 2457591], ["lettuce", 5, 2457591], ["tomatoes", 5, 2457591], ["milk", 1, 2457591]])
+    expect(@db.execute("SELECT * FROM fridge")).to eq([["eggs", 12, Date::today.jd], ["lettuce", 5, Date::today.jd], ["tomatoes", 5, Date::today.jd], ["milk", 1, Date::today.jd]])
   end
 
   it "loads properly from a database" do
-    temp = Fridge.new(@db)
+    temp = Fridge.new(@db,"fridge")
     temp.load
     expect(temp.inventory).to eq([Grocery.new('eggs',12), Grocery.new("lettuce", 5), Grocery.new('tomatoes',5), Grocery.new('milk',1)])
   end

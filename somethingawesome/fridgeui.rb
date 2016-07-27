@@ -12,7 +12,7 @@ create_table_cmd = <<-SQL
 SQL
 db.execute(create_table_cmd)
 
-fridge = Fridge.new(db)
+fridge = Fridge.new(db, "fridge")
 fridge.load
 
 quitwords = ["q", "quit", "done", "stop", "no", "exit"]
